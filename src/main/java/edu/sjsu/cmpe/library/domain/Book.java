@@ -4,7 +4,11 @@ package edu.sjsu.cmpe.library.domain;
 public class Book {
     private long isbn;
     private String title;
-
+    private String publicationDate;
+    private String language;
+    private int numberOfPages;
+    private String status;
+    
     // add more fields here
 
     /**
@@ -35,5 +39,37 @@ public class Book {
      */
     public void setTitle(String title) {
 	this.title = title;
+    }
+    
+    public String getPublicationDate() {
+    	return publicationDate;
+    }
+    
+    public void setPublicationDate(String publicationDate) {
+    	this.publicationDate = publicationDate;
+    }
+    
+    public String getLanguage() {
+    	return language;
+    }
+    
+    public void setLanguage(String language) {
+    	this.language = language;
+    }
+    
+    public int getNumberOfPages() {
+    	return numberOfPages;
+    }
+    
+    public void setNumberOfPages(int numberOfPages) {
+    	this.numberOfPages = numberOfPages;
+    }
+    
+    public String getStatus() {
+    	return status;
+    }
+    
+    public void setStatus(String status) {
+    	this.status = status;
     }
 }
