@@ -12,15 +12,15 @@ public class BookDto extends LinksDto {
      * @param book
      */
     public BookDto(Book book) {
-	super();
-	this.book = book;
+    	super();
+    	this.book = book;
     }
 
     /**
      * @return the book
      */
     public Book getBook() {
-	return book;
+    	return book;
     }
 
     /**
@@ -28,6 +28,6 @@ public class BookDto extends LinksDto {
      *            the book to set
      */
     public void setBook(Book book) {
-	this.book = book;
+    	this.book = book;
     }
 }

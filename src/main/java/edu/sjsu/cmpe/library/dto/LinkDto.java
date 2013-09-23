@@ -12,16 +12,16 @@ public class LinkDto {
      */
     public LinkDto(String rel, String href, String method) {
 	super();
-	this.rel = rel;
-	this.href = href;
-	this.method = method;
+		this.rel = rel;
+		this.href = href;
+		this.method = method;
     }
 
     /**
      * @return the rel
      */
     public String getRel() {
-	return rel;
+    	return rel;
     }
 
     /**
@@ -29,14 +29,14 @@ public class LinkDto {
      *            the rel to set
      */
     public void setRel(String rel) {
-	this.rel = rel;
+    	this.rel = rel;
     }
 
     /**
      * @return the href
      */
     public String getHref() {
-	return href;
+    	return href;
     }
 
     /**
@@ -44,14 +44,14 @@ public class LinkDto {
      *            the href to set
      */
     public void setHref(String href) {
-	this.href = href;
+    	this.href = href;
     }
 
     /**
      * @return the method
      */
     public String getMethod() {
-	return method;
+    	return method;
     }
 
     /**
@@ -59,7 +59,7 @@ public class LinkDto {
      *            the method to set
      */
     public void setMethod(String method) {
-	this.method = method;
+    	this.method = method;
     }
 
 }

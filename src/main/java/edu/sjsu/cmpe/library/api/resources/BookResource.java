@@ -31,37 +31,35 @@ public class BookResource {
      *            a BookRepository instance
      */
     public BookResource(BookRepositoryInterface bookRepository) {
-	this.bookRepository = bookRepository;
+    	this.bookRepository = bookRepository;
     }
 
     @GET
     @Path("/{isbn}")
     @Timed(name = "view-book")
     public BookDto getBookByIsbn(@PathParam("isbn") LongParam isbn) {
-	Book book = bookRepository.getBookByISBN(isbn.get());
-	BookDto bookResponse = new BookDto(book);
-	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(),
-		"GET"));
-	bookResponse.addLink(new LinkDto("update-book",
-		"/books/" + book.getIsbn(), "POST"));
-	// add more links
+    	Book book = bookRepository.getBookByISBN(isbn.get());
+    	BookDto bookResponse = new BookDto(book);
+    	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(), "GET"));
+    	bookResponse.addLink(new LinkDto("update-book", "/books/" + book.getIsbn(), "POST"));
+    	// add more links
 
-	return bookResponse;
+    	return bookResponse;
     }
 
     @POST
     @Timed(name = "create-book")
     public Response createBook(Book request) {
-	// Store the new book in the BookRepository so that we can retrieve it.
-	Book savedBook = bookRepository.saveBook(request);
+    	// Store the new book in the BookRepository so that we can retrieve it.
+    	Book savedBook = bookRepository.saveBook(request);
 
-	String location = "/books/" + savedBook.getIsbn();
-	BookDto bookResponse = new BookDto(savedBook);
-	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
-	bookResponse.addLink(new LinkDto("update-book", location, "POST"));
-	// Add other links if needed
+    	String location = "/books/" + savedBook.getIsbn();
+    	BookDto bookResponse = new BookDto(savedBook);
+    	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
+    	bookResponse.addLink(new LinkDto("update-book", location, "POST"));
+    	// Add other links if needed
 
-	return Response.status(201).entity(bookResponse).build();
+    	return Response.status(201).entity(bookResponse).build();
     }
 }
 

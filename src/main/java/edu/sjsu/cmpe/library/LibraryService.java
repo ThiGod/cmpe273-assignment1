@@ -16,23 +16,21 @@ import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 public class LibraryService extends Service<LibraryServiceConfiguration> {
 
     public static void main(String[] args) throws Exception {
-	new LibraryService().run(args);
+    	new LibraryService().run(args);
     }
 
     @Override
     public void initialize(Bootstrap<LibraryServiceConfiguration> bootstrap) {
-	bootstrap.setName("library-service");
+    	bootstrap.setName("library-service");
     }
 
     @Override
-    public void run(LibraryServiceConfiguration configuration,
-	    Environment environment) throws Exception {
-	/** Root API */
-	environment.addResource(RootResource.class);
-	/** Books APIs */
-	BookRepositoryInterface bookRepository = new BookRepository(
-		new ConcurrentHashMap<Long, Book>());
-	environment.addResource(new BookResource(bookRepository));
-	/** Add new resources here */
+    public void run(LibraryServiceConfiguration configuration, Environment environment) throws Exception {
+    	/** Root API */
+    	environment.addResource(RootResource.class);
+    	/** Books APIs */
+    	BookRepositoryInterface bookRepository = new BookRepository(new ConcurrentHashMap<Long, Book>());
+    	environment.addResource(new BookResource(bookRepository));
+    	/** Add new resources here */
     }
 }

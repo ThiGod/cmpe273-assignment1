@@ -18,16 +18,16 @@ import edu.sjsu.cmpe.library.dto.LinksDto;
 public class RootResource {
 
     public RootResource() {
-	// do nothing
+    	// do nothing
     }
 
     @GET
     @Timed(name = "get-root")
     public Response getRoot() {
-	LinksDto links = new LinksDto();
-	links.addLink(new LinkDto("create-book", "/books", "POST"));
+    	LinksDto links = new LinksDto();
+    	links.addLink(new LinkDto("create-book", "/books", "POST"));
 
-	return Response.ok(links).build();
+    	return Response.ok(links).build();
     }
 }
 

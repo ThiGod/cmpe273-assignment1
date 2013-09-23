@@ -7,14 +7,14 @@ public class LinksDto {
     private List<LinkDto> links = new ArrayList<LinkDto>();
 
     public void addLink(LinkDto link) {
-	links.add(link);
+    	links.add(link);
     }
 
     /**
      * @return the links
      */
     public List<LinkDto> getLinks() {
-	return links;
+    	return links;
     }
 
     /**
@@ -22,7 +22,7 @@ public class LinksDto {
      *            the links to set
      */
     public void setLinks(List<LinkDto> links) {
-	this.links = links;
+    	this.links = links;
     }
 
 }

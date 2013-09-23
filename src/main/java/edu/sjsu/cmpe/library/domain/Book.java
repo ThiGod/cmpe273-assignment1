@@ -15,7 +15,7 @@ public class Book {
      * @return the isbn
      */
     public long getIsbn() {
-	return isbn;
+    	return isbn;
     }
 
     /**
@@ -23,14 +23,14 @@ public class Book {
      *            the isbn to set
      */
     public void setIsbn(long isbn) {
-	this.isbn = isbn;
+    	this.isbn = isbn;
     }
 
     /**
      * @return the title
      */
     public String getTitle() {
-	return title;
+    	return title;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Book {
      *            the title to set
      */
     public void setTitle(String title) {
-	this.title = title;
+    	this.title = title;
     }
     
     public String getPublicationDate() {
