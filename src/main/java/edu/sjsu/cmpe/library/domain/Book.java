@@ -1,13 +1,34 @@
 package edu.sjsu.cmpe.library.domain;
 
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Book {
     private long isbn;
     private String title;
-    private String publicationDate;
+    
+    @JsonProperty("publication-date")
+    private String publication_date;
+   
     private String language;
-    private int numberOfPages;
-    private String status;
+    
+    @JsonProperty("num-pages")
+    private int num_pages;
+    
+    private String status = "available";
+    
+    private ArrayList<Author> authors = new ArrayList<Author>();
+	
+
+	public ArrayList<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(ArrayList<Author> authors) {
+		this.authors = authors;
+	} 
     
     // add more fields here
 
@@ -41,14 +62,14 @@ public class Book {
     	this.title = title;
     }
     
-    public String getPublicationDate() {
-    	return publicationDate;
-    }
-    
-    public void setPublicationDate(String publicationDate) {
-    	this.publicationDate = publicationDate;
-    }
-    
+    public String getPublication_date() {
+		return publication_date;
+	}
+
+	public void setPublication_date(String publication_date) {
+		this.publication_date = publication_date;
+	}
+	
     public String getLanguage() {
     	return language;
     }
@@ -57,13 +78,13 @@ public class Book {
     	this.language = language;
     }
     
-    public int getNumberOfPages() {
-    	return numberOfPages;
-    }
-    
-    public void setNumberOfPages(int numberOfPages) {
-    	this.numberOfPages = numberOfPages;
-    }
+    public int getNum_pages() {
+		return num_pages;
+	}
+
+	public void setNum_pages(int num_pages) {
+		this.num_pages = num_pages;
+	}
     
     public String getStatus() {
     	return status;

@@ -35,6 +35,7 @@ public class BookResource {
     }
 
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{isbn}")
     @Timed(name = "view-book")
     public BookDto getBookByIsbn(@PathParam("isbn") LongParam isbn) {
@@ -43,11 +44,14 @@ public class BookResource {
     	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(), "GET"));
     	bookResponse.addLink(new LinkDto("update-book", "/books/" + book.getIsbn(), "POST"));
     	// add more links
-
+    	bookResponse.addLink(new LinkDto("delete-book", "/books/" + book.getIsbn(), "DELETE"));
+    	bookResponse.addLink(new LinkDto("create-review", "/books/" + book.getIsbn() + "/reviews", "POST"));
+    	bookResponse.addLink(new LinkDto("view-all-reviews", "/books/" + book.getIsbn() + "/reviews", "GET"));
     	return bookResponse;
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Timed(name = "create-book")
     public Response createBook(Book request) {
     	// Store the new book in the BookRepository so that we can retrieve it.
@@ -58,7 +62,8 @@ public class BookResource {
     	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
     	bookResponse.addLink(new LinkDto("update-book", location, "POST"));
     	// Add other links if needed
-
+    	bookResponse.addLink(new LinkDto("delete-book", location, "DELETE"));
+    	bookResponse.addLink(new LinkDto("create-review", location + "/reviews", "POST"));
     	return Response.status(201).entity(bookResponse).build();
     }
 }
