@@ -1,6 +1,9 @@
 package edu.sjsu.cmpe.library.domain;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,18 +21,36 @@ public class Book {
     private int num_pages;
     
     private String status = "available";
-    
+   
     private ArrayList<Author> authors = new ArrayList<Author>();
-	
-
+	private int authorNumber = 0;
+	private int authorId;
 	public ArrayList<Author> getAuthors() {
 		return authors;
 	}
-
 	public void setAuthors(ArrayList<Author> authors) {
+		authorNumber = authors.size();
+		for(authorId = 0; authorId < authorNumber; authorId++)  {
+			authors.get(authorId).setId(authorId+1);
+		}	
 		this.authors = authors;
 	} 
+	
+	private ArrayList<Review> reviews = new ArrayList<Review>();
+	private int reviewNumber = 0;
+	private int reviewId;
+	public ArrayList<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(ArrayList<Review> reviews) {
+		reviewNumber = reviews.size();
+		for(reviewId = 0; reviewId < reviewNumber; reviewId++)  {
+			authors.get(reviewId).setId(reviewId+1);
+		}	
+		this.reviews = reviews;
+	} 
     
+
     // add more fields here
 
     /**

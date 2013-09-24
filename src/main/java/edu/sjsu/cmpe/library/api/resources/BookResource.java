@@ -1,6 +1,7 @@
 package edu.sjsu.cmpe.library.api.resources;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -12,9 +13,13 @@ import javax.ws.rs.core.Response;
 import com.yammer.dropwizard.jersey.params.LongParam;
 import com.yammer.metrics.annotation.Timed;
 
+import edu.sjsu.cmpe.library.domain.Author;
 import edu.sjsu.cmpe.library.domain.Book;
+import edu.sjsu.cmpe.library.domain.Review;
+import edu.sjsu.cmpe.library.dto.AuthorDto;
 import edu.sjsu.cmpe.library.dto.BookDto;
 import edu.sjsu.cmpe.library.dto.LinkDto;
+import edu.sjsu.cmpe.library.dto.ReviewDto;
 import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 
 @Path("/v1/books")
@@ -40,13 +45,16 @@ public class BookResource {
     @Timed(name = "view-book")
     public BookDto getBookByIsbn(@PathParam("isbn") LongParam isbn) {
     	Book book = bookRepository.getBookByISBN(isbn.get());
+    	int reviewNumber = book.getReviews().size();
     	BookDto bookResponse = new BookDto(book);
     	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(), "GET"));
-    	bookResponse.addLink(new LinkDto("update-book", "/books/" + book.getIsbn(), "POST"));
+    	bookResponse.addLink(new LinkDto("update-book", "/books/" + book.getIsbn(), "PUT"));
     	// add more links
     	bookResponse.addLink(new LinkDto("delete-book", "/books/" + book.getIsbn(), "DELETE"));
     	bookResponse.addLink(new LinkDto("create-review", "/books/" + book.getIsbn() + "/reviews", "POST"));
-    	bookResponse.addLink(new LinkDto("view-all-reviews", "/books/" + book.getIsbn() + "/reviews", "GET"));
+    	if(reviewNumber > 0) {
+    		bookResponse.addLink(new LinkDto("view-all-reviews", "/books/" + book.getIsbn() + "/reviews", "GET"));
+    	}	
     	
     	return bookResponse;
     }
@@ -61,20 +69,46 @@ public class BookResource {
     	String location = "/books/" + savedBook.getIsbn();
     	BookDto bookResponse = new BookDto(savedBook);
     	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
-    	bookResponse.addLink(new LinkDto("update-book", location, "POST"));
+    	bookResponse.addLink(new LinkDto("update-book", location, "PUT"));
     	// Add other links if needed
     	bookResponse.addLink(new LinkDto("delete-book", location, "DELETE"));
     	bookResponse.addLink(new LinkDto("create-review", location + "/reviews", "POST"));
     	
     	return Response.status(201).entity(bookResponse).build();
+    	
     }
     
-    /*
+    
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{isbn}")
     @Timed(name = "delete-book")
-    public
-    */
+    public BookDto delteBook(@PathParam("isbn") LongParam isbn) {
+    	Book book = bookRepository.deleteBook(isbn.get());
+    	BookDto bookRepository = new BookDto(book);
+    	bookRepository.addLink(new LinkDto("create-book", "/books", "POST"));
+    	
+    	return bookRepository;
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{isbn}/authors")
+    @Timed(name = "view-all-authors")
+    public AuthorDto getAuthorByIsbn(@PathParam("isbn") LongParam isbn) {
+    	Author author = bookRepository.getAuthorByISBN(isbn.get());
+    	AuthorDto authorResponse = new AuthorDto(author);
+    	return authorResponse;
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{isbn}/reviews")
+    @Timed(name = "view-all-reviews")
+    public ReviewDto getReviewByIsbn(@PathParam("isbn") LongParam isbn) {
+    	Review review = bookRepository.getReviewByISBN(isbn.get());
+    	ReviewDto reviewResponse = new ReviewDto(review);
+    	return reviewResponse;
+    }
 }
 
