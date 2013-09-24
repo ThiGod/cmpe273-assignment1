@@ -47,6 +47,7 @@ public class BookResource {
     	bookResponse.addLink(new LinkDto("delete-book", "/books/" + book.getIsbn(), "DELETE"));
     	bookResponse.addLink(new LinkDto("create-review", "/books/" + book.getIsbn() + "/reviews", "POST"));
     	bookResponse.addLink(new LinkDto("view-all-reviews", "/books/" + book.getIsbn() + "/reviews", "GET"));
+    	
     	return bookResponse;
     }
 
@@ -64,7 +65,16 @@ public class BookResource {
     	// Add other links if needed
     	bookResponse.addLink(new LinkDto("delete-book", location, "DELETE"));
     	bookResponse.addLink(new LinkDto("create-review", location + "/reviews", "POST"));
+    	
     	return Response.status(201).entity(bookResponse).build();
     }
+    
+    /*
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{isbn}")
+    @Timed(name = "delete-book")
+    public
+    */
 }
 
