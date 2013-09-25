@@ -117,7 +117,17 @@ public class BookResource {
     public BookDto getReviews(@PathParam("isbn") LongParam isbn) {
     	Book book = bookRepository.getBookByISBN(isbn.get());
     	BookDto bookResponse = new BookDto(book);
-    	//Review review = book.getReviews().
+    	
+    	return bookResponse;
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{isbn}/authors")
+    @Timed(name = "view-all-authors")
+    public BookDto getAuthors(@PathParam("isbn") LongParam isbn) {
+    	Book book = bookRepository.getBookByISBN(isbn.get());
+    	BookDto bookResponse = new BookDto(book);
     	
     	return bookResponse;
     }
@@ -126,25 +136,25 @@ public class BookResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{isbn}/reviews/{id}")
     @Timed(name = "view-review")
-    public BookDto getReviewByIsbn(@PathParam("isbn") LongParam isbn, @QueryParam("id") IntParam id) {
+    public BookDto getReviewByIsbn(@PathParam("isbn") LongParam isbn, @PathParam("id") IntParam id) {
     	Book book = bookRepository.getBookByISBN(isbn.get());
     	BookDto bookResponse = new BookDto(book);
     	Review review = book.getReviews().get(id.get());
-    	
-    	
-    	/*
-    	int reviewNumber = book.getReviews().size();
+    	String location = "/books/" + book.getIsbn() + "/reviews/" + id.get();
+    	bookResponse.addLink(new LinkDto("view-review", location, "GET"));
+    	return bookResponse;
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{isbn}/authors/{id}")
+    @Timed(name = "view-author")
+    public BookDto getAuthorByIsbn(@PathParam("isbn") LongParam isbn, @PathParam("id") IntParam id) {
+    	Book book = bookRepository.getBookByISBN(isbn.get());
     	BookDto bookResponse = new BookDto(book);
-    	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(), "GET"));
-    	bookResponse.addLink(new LinkDto("update-book", "/books/" + book.getIsbn(), "PUT"));
-    	// add more links
-    	bookResponse.addLink(new LinkDto("delete-book", "/books/" + book.getIsbn(), "DELETE"));
-    	bookResponse.addLink(new LinkDto("create-review", "/books/" + book.getIsbn() + "/reviews", "POST"));
-    	if(reviewNumber > 0) {
-    		bookResponse.addLink(new LinkDto("view-all-reviews", "/books/" + book.getIsbn() + "/reviews", "GET"));
-    	}	
-    	*/
-    	
+    	Author author = book.getAuthors().get(id.get());
+    	String location = "/books/" + book.getIsbn() + "/reviews/" + id.get();
+    	bookResponse.addLink(new LinkDto("view-author", location, "GET"));
     	return bookResponse;
     }
 }
