@@ -22,4 +22,5 @@
 *.RTF	 diff=astextplain
 
 # Custom
+bin/
 *.sh
