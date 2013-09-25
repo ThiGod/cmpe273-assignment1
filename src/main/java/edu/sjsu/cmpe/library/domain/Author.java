@@ -1,14 +1,14 @@
 package edu.sjsu.cmpe.library.domain;
 
 public class Author {
-	private long id;
+	private int id;
 	private String name;
 	
 	public long getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

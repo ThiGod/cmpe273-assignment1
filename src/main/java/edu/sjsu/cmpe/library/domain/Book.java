@@ -1,9 +1,6 @@
 package edu.sjsu.cmpe.library.domain;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -45,7 +42,7 @@ public class Book {
 	public void setReviews(ArrayList<Review> reviews) {
 		reviewNumber = reviews.size();
 		for(reviewId = 0; reviewId < reviewNumber; reviewId++)  {
-			authors.get(reviewId).setId(reviewId+1);
+			reviews.get(reviewId).setId(reviewId+1);
 		}	
 		this.reviews = reviews;
 	} 

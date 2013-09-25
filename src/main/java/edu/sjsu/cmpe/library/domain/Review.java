@@ -1,7 +1,7 @@
 package edu.sjsu.cmpe.library.domain;
 
 public class Review {
-	private long id;
+	private int id;
 	private int rating;
 	private String comment;
 	
@@ -9,7 +9,7 @@ public class Review {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
