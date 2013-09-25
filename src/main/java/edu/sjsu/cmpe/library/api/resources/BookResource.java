@@ -81,7 +81,6 @@ public class BookResource {
     	
     }
     
-    
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{isbn}")
@@ -110,25 +109,28 @@ public class BookResource {
     	 	
     	return Response.status(201).entity(bookResponse).build();
     } 
-    
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{isbn}/authors")
-    @Timed(name = "view-all-authors")
-    public AuthorDto getAuthorByIsbn(@PathParam("isbn") LongParam isbn) {
-    	Author author = bookRepository.getAuthorByISBN(isbn.get());
-    	AuthorDto authorResponse = new AuthorDto(author);
-    	
-    	return authorResponse;
-    }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{isbn}/reviews/{id}")
+    @Path("/{isbn}/reviews")
     @Timed(name = "view-all-reviews")
+    public BookDto getReviews(@PathParam("isbn") LongParam isbn) {
+    	Book book = bookRepository.getBookByISBN(isbn.get());
+    	BookDto bookResponse = new BookDto(book);
+    	//Review review = book.getReviews().
+    	
+    	return bookResponse;
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{isbn}/reviews/{id}")
+    @Timed(name = "view-review")
     public BookDto getReviewByIsbn(@PathParam("isbn") LongParam isbn, @QueryParam("id") IntParam id) {
     	Book book = bookRepository.getBookByISBN(isbn.get());
     	BookDto bookResponse = new BookDto(book);
+    	Review review = book.getReviews().get(id.get());
+    	
     	
     	/*
     	int reviewNumber = book.getReviews().size();
